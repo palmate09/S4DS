@@ -1,20 +1,22 @@
-const express=require("express")
-const mongoose=require("mongoose")
-const app=express()
-const UserRoutes=require('./Routes/route')
-const bodyparser=require('body-parser')
-const dotenv=require("dotenv").config()
-const cors=require("cors")
-app.use(cors())
-app.use(express.json())
-app.use(bodyparser.json())
-const MONGO_URI=process.env.DataBase;
-mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error(err));
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import userRoute from './Routes/userRoute.js'
+import PlaygroundRoute from './Routes/PlaygroundRoute.js'
+import formRoute from './Routes/formRoute.js'
+dotenv.config();
 
-app.use('/App',UserRoutes)
-app.listen(8000,'127.0.0.1',()=>{
-    console.log("Listening from the server")
-})
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.json());
+
+app.use('/api/v1', userRoute);
+app.use('/api/v1/App', PlaygroundRoute);
+app.use('/api/v1/RSVP', formRoute);
+
+
+app.listen(process.env.PORT || 8080); 
+

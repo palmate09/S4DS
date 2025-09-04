@@ -1,1 +1,5 @@
 node_modules/
+
+Server/.env
+
+Server/node_modules
