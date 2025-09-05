@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export const sendMail = async (to, subject, text, html = null) => {
   const transporter = nodemailer.createTransport({
-    service: 'Gmail', // or use another service like Outlook, Yahoo
+    host:'sandbox.smtp.mailtrap.io',
+    port: 587, // or use another service like Outlook, Yahoo
     auth: {
       user: process.env.EMAIL, // Replace with your email
       pass: process.env.PASS_KEY // Replace with your email password or app-specific password
